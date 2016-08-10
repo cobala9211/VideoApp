@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VideoApp</string>
+    
+    <!--custom string-->
+    <string name="activity.actionbar.drawer.text_drawer">drawer</string>
+    <string name="activity.actionbar.drawer.text_drawer_open">open drawer</string>
 </resources>
