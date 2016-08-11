@@ -24,13 +24,4 @@ public class NavigatationItem {
      **/
     private String title;
 
-    /**
-     * count video
-     **/
-    private int count;
-
-    /**
-     * type item listview
-     **/
-    private int type;
 }

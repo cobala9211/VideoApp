@@ -4,4 +4,9 @@
     <!--custom string-->
     <string name="activity.actionbar.drawer.text_drawer">drawer</string>
     <string name="activity.actionbar.drawer.text_drawer_open">open drawer</string>
+    <string name="activity.actionbar.drawer.text_drawer_close">open drawer</string>
+    <string name="activity.recyclerview.text_row">this is item</string>
+    <string name="activity.recyclerview.text.header_user_name">username</string>
+    <string name="activity.toolbar.text.title">Home Page</string>
+    <string name="activity.recyclerview.text.header_user_email">dangocphuong11t3@gmail.com</string>
 </resources>

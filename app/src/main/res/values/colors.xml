@@ -7,5 +7,7 @@
 
     <!--custom color my app-->
     <color name="color.actionbar.green">#0B7A12</color>
+    <color name="color.textview.black">#000000</color>
+    <color name="color.textview.white">#ffffff</color>
 
 </resources>
