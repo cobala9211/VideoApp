@@ -1,18 +1,15 @@
 package com.example.dnp.videoapp.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.dnp.videoapp.R;
 import com.example.dnp.videoapp.model.NavigatationItem;
-import com.example.dnp.videoapp.util.Constant;
-
+import com.example.dnp.videoapp.model.Users;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,35 +18,28 @@ import java.util.List;
  */
 public class NavigatationAdapter extends RecyclerView.Adapter<NavigatationAdapter.NavigatationHodel> {
 
-    private String mUserName;
+    private static final String TAG = NavigatationAdapter.class.getSimpleName();
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+    private final Users mUser;
+    private List<NavigatationItem> mListItem = new ArrayList<>();
 
-    private int mUserProfile;
-
-    private String mUserGmail;
-
-    private Context mContext;
-
-    public List<NavigatationItem> mListItem = new ArrayList<>();
-
-    public NavigatationAdapter(List<NavigatationItem> list, String name, String email, int profile, Context context) {
+    public NavigatationAdapter(List<NavigatationItem> list, Users user) {
         this.mListItem = list;
-        this.mUserName = name;
-        this.mUserGmail = email;
-        this.mUserProfile = profile;
-        this.mContext = context;
+        this.mUser = user;
     }
 
     @Override
     public NavigatationHodel onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == Constant.TYPE_ITEM) {
+        if (viewType == TYPE_ITEM) {
             View mViewItem = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_list_view_row, parent, false);
-            NavigatationHodel mNavigatationHodel = new NavigatationHodel(mViewItem, viewType, parent.getContext());
+            NavigatationHodel mNavigatationHodel = new NavigatationHodel(mViewItem, viewType);
             return mNavigatationHodel;
-        } else if (viewType == Constant.TYPE_HEADER) {
+        } else if (viewType == TYPE_HEADER) {
             View mViewHeader = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_list_view_header, parent, false);
-            NavigatationHodel mNavigatationHodel = new NavigatationHodel(mViewHeader, viewType, parent.getContext());
+            NavigatationHodel mNavigatationHodel = new NavigatationHodel(mViewHeader, viewType);
             return mNavigatationHodel;
         }
         return null;
@@ -61,9 +51,9 @@ public class NavigatationAdapter extends RecyclerView.Adapter<NavigatationAdapte
             holder.mTexView.setText(mListItem.get(position).getTitle());
             holder.mImgView.setImageResource(mListItem.get(position).getUrl());
         } else {
-            holder.mTvUserName.setText(mUserName);
-            holder.mTvUesrEmail.setText(mUserGmail);
-            holder.mImgUserProfile.setImageResource(mUserProfile);
+            holder.mTvUserName.setText(mUser.getMUserName());
+            holder.mTvUesrEmail.setText(mUser.getMUserGmail());
+            holder.mImgUserProfile.setImageResource(mUser.getMUserProfile());
         }
     }
 
@@ -75,8 +65,8 @@ public class NavigatationAdapter extends RecyclerView.Adapter<NavigatationAdapte
     @Override
     public int getItemViewType(int position) {
         if (isPostionHeader(position))
-            return Constant.TYPE_HEADER;
-        return Constant.TYPE_ITEM;
+            return TYPE_HEADER;
+        return TYPE_ITEM;
     }
 
     private boolean isPostionHeader(int position) {
@@ -87,40 +77,31 @@ public class NavigatationAdapter extends RecyclerView.Adapter<NavigatationAdapte
             implements View.OnClickListener {
 
         private int mHolderId;
-
         private TextView mTexView;
-
         private ImageView mImgView;
-
         private ImageView mImgUserProfile;
-
         private TextView mTvUserName;
+        private TextView mTvUesrEmail = null;
 
-        private TextView mTvUesrEmail;
-
-        private Context mContext;
-
-        public NavigatationHodel(View itemView, int viewType, Context context) {
+        public NavigatationHodel(View itemView, int viewType) {
             super(itemView);
-            mContext = context;
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
-            if (viewType == Constant.TYPE_ITEM) {
+            if (viewType == TYPE_ITEM) {
                 mTexView = (TextView) itemView.findViewById(R.id.tvRowText);
                 mImgView = (ImageView) itemView.findViewById(R.id.imgRowIcon);
-                mHolderId = Constant.TYPE_ITEM;
-
+                mHolderId = TYPE_ITEM;
             } else {
                 mTvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
                 mTvUesrEmail = (TextView) itemView.findViewById(R.id.tvUserEmail);
                 mImgUserProfile = (ImageView) itemView.findViewById(R.id.imgUserProfile);
-                mHolderId = Constant.TYPE_HEADER;
+                mHolderId = TYPE_HEADER;
             }
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(mContext, "position = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onClick: " + getAdapterPosition());
         }
 
     }

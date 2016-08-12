@@ -6,22 +6,28 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Created by dnp on 10/08/2016.
+ * Created by dnp on 11/08/2016.
  */
-
 @RequiredArgsConstructor(suppressConstructorProperties = true, access = AccessLevel.PUBLIC)
 @AllArgsConstructor(suppressConstructorProperties = true, access = AccessLevel.PUBLIC)
 @Data
-public class NavigatationItem {
+public class Users {
 
     /**
-     * url : this is url image row item
-     **/
-    private int url;
+     * mUserName : this is name of user
+     */
+    private String mUserName;
 
     /**
-     * title : this is title row item
-     **/
-    private String title;
+     * mUserGmail : this is email of user
+     */
+    private String mUserGmail;
+
+    /**
+     * mUserProfile : this is url image of user
+     */
+    private int mUserProfile;
+
+
 
 }

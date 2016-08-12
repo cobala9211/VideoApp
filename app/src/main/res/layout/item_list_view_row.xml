@@ -3,8 +3,9 @@
     android:id="@+id/llLayoutRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:background="@drawable/custom_button_select"
     android:clickable="true"
+    android:orientation="horizontal"
     android:padding="@dimen/activity.revyclerview.padding.item_row">
 
     <ImageView
@@ -20,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/activity.recyclerview.margin_left"
-        android:textColor="@color/color.textview.black"
-        android:text="@string/activity.recyclerview.text_row" />
+        android:text="@string/activity.recyclerview.text_row"
+        android:textColor="@color/color.textview.black" />
 </LinearLayout>

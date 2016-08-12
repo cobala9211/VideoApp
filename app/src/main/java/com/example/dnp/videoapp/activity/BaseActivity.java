@@ -1,17 +1,20 @@
 package com.example.dnp.videoapp.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
 
 /**
  * Created by dnp on 10/08/2016.
  */
+@EActivity
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    void initView() {
+        this.afterViews();
     }
 
+    @AfterViews
+    abstract void afterViews();
 }

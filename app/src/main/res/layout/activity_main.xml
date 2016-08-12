@@ -10,18 +10,17 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/tbToolBar"
+            android:id="@+id/tbTitle"
             layout="@layout/custom_toolbar"></include>
 
         <FrameLayout
             android:id="@+id/frHomeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></FrameLayout>
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
+        android:id="@+id/recycleViewMenu"
         android:layout_width="@dimen/activity.recyclerview.width"
         android:layout_height="match_parent"
         android:layout_gravity="left"
