@@ -5,17 +5,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--custom dimens-->
-    <dimen name="activity.recyclerview.margin_left">16dp</dimen>
-    <dimen name="activity.recyclerview.margin_rigth">16dp</dimen>
-    <dimen name="activity.recyclerview.relativelayout.height">176dp</dimen>
-    <dimen name="activity.recyclerview.linearLayout.height">56dp</dimen>
-    <dimen name="activity.recyclerview.circleimageview">70dp</dimen>
-    <dimen name="activity.recyclerview.width">320dp</dimen>
-    <dimen name="activity.recyclerview.circleimageview_magintop">35dp</dimen>
-    <dimen name="activity.toolbar.height">50dp</dimen>
-    <dimen name="activity.revyclerview.padding.item_row">10dp</dimen>
-    <dimen name="activity.textview.size_normal">16dp</dimen>
-    <dimen name="activity.textview.size_medium">22dp</dimen>
+    <dimen name="main.recyclerview.margin_left">16dp</dimen>
+    <dimen name="main.recyclerview.margin_rigth">16dp</dimen>
+    <dimen name="main.recyclerview.relativelayout.height">176dp</dimen>
+    <dimen name="main.recyclerview.linearLayout.height">56dp</dimen>
+    <dimen name="main.recyclerview.circleimageview">70dp</dimen>
+    <dimen name="main.recyclerview.width">320dp</dimen>
+    <dimen name="main.recyclerview.circleimageview_magintop">35dp</dimen>
+    <dimen name="main.toolbar.height">50dp</dimen>
+    <dimen name="main.revyclerview.padding.item_row">10dp</dimen>
+    <dimen name="main.textview.size_normal">16dp</dimen>
+    <dimen name="main.textview.size_medium">22dp</dimen>
 
 
 </resources>

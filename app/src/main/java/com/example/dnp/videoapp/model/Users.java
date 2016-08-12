@@ -14,19 +14,19 @@ import lombok.RequiredArgsConstructor;
 public class Users {
 
     /**
-     * mUserName : this is name of user
+     * userName : this is name of user
      */
-    private String mUserName;
+    private String userName;
 
     /**
-     * mUserGmail : this is email of user
+     * email : this is email of user
      */
-    private String mUserGmail;
+    private String email;
 
     /**
-     * mUserProfile : this is url image of user
+     * userProfile : this is url image of user
      */
-    private int mUserProfile;
+    private int userProfile;
 
 
 

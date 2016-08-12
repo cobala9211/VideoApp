@@ -10,7 +10,7 @@
     android:contentInsetStart="0dp"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    android:background="@color/color.actionbar.green">
+    android:background="@color/main.toolbar.color_green">
 
     <TextView
         android:id="@+id/tvTitleHeader"
@@ -19,6 +19,6 @@
         android:layout_gravity="center"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/activity.textview.size_medium"
-        tools:text="@string/activity.toolbar.text.title" />
+        android:textSize="@dimen/main.textview.size_medium"
+        tools:text="@string/main.toolbar.text.title" />
 </android.support.v7.widget.Toolbar>

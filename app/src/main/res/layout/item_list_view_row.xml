@@ -3,16 +3,16 @@
     android:id="@+id/llLayoutRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/custom_button_select"
+    android:background="@drawable/selecter_item_navigate"
     android:clickable="true"
     android:orientation="horizontal"
-    android:padding="@dimen/activity.revyclerview.padding.item_row">
+    android:padding="@dimen/main.revyclerview.padding.item_row">
 
     <ImageView
         android:id="@+id/imgRowIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity.recyclerview.margin_left"
+        android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/activity.recyclerview.margin_left"
-        android:text="@string/activity.recyclerview.text_row"
-        android:textColor="@color/color.textview.black" />
+        android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+        android:text="@string/main.recyclerview.text_row"
+        android:textColor="@color/main.textview.color_black" />
 </LinearLayout>

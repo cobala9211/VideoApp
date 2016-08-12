@@ -11,10 +11,5 @@ import org.androidannotations.annotations.EActivity;
 public abstract class BaseActivity extends AppCompatActivity {
 
     @AfterViews
-    void initView() {
-        this.afterViews();
-    }
-
-    @AfterViews
     abstract void afterViews();
 }

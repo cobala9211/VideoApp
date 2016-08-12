@@ -6,8 +6,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--custom color my app-->
-    <color name="color.actionbar.green">#0B7A12</color>
-    <color name="color.textview.black">#000000</color>
-    <color name="color.textview.white">#ffffff</color>
+    <color name="main.toolbar.color_green">@color/colorPrimary</color>
+    <color name="main.textview.color_black">@android:color/black</color>
+    <color name="main.textview.color_white">@android:color/white</color>
+    <color name="main.recyclerview.color.background_white">@android:color/white</color>
 
 </resources>

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(suppressConstructorProperties = true, access = AccessLevel.PUBLIC)
 @AllArgsConstructor(suppressConstructorProperties = true, access = AccessLevel.PUBLIC)
 @Data
-public class NavigatationItem {
+public class RowItem {
 
     /**
      * url : this is url image row item

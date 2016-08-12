@@ -2,39 +2,41 @@
     <string name="app_name">VideoApp</string>
 
     <!--custom string-->
-    <string name="activity.actionbar.drawer.text_drawer">drawer</string>
-    <string name="activity.actionbar.drawer.text_drawer_open">open drawer</string>
-    <string name="activity.actionbar.drawer.text_drawer_close">open drawer</string>
-    <string name="activity.recyclerview.text_row">this is item</string>
-    <string name="activity.recyclerview.text.header_user_name">username</string>
-    <string name="activity.toolbar.text.title">Home Page</string>
-    <string name="activity.recyclerview.text.header_user_email">dangocphuong11t3@gmail.com</string>
-    <string name="activity.object.user_name">Cobala92</string>
-    <string name="activity.object.user_email">dangocphuong11t3@gmail.com</string>
-    <string name="activity.menu.text.action_setting">Setting</string>
-    <string name="activity.menu.text.action_upload">Upload</string>
+    <string name="main.actionbar.drawer.text_drawer">drawer</string>
+    <string name="main.actionbar.drawer.text_drawer_open">open drawer</string>
+    <string name="main.actionbar.drawer.text_drawer_close">open drawer</string>
+    <string name="main.recyclerview.text_row">this is item</string>
+    <string name="main.recyclerview.text.header_user_name">username</string>
+    <string name="main.toolbar.text.title">Home Page</string>
+    <string name="main.recyclerview.text.header_user_email">dangocphuong11t3@gmail.com</string>
+    <string name="main.object.user_name">Cobala92</string>
+    <string name="main.object.user_email">dangocphuong11t3@gmail.com</string>
+    <string name="main.menu.text.action_setting">Setting</string>
+    <string name="main.menu.text.action_upload">Upload</string>
+    <string name="main.toast.text.action_setting">action item menu setting</string>
+    <string name="main.toast.text.action_upload">action item menu upload</string>
 
     <!--custom array-->
-    <integer-array name="activity_array_user_profile">
+    <integer-array name="main_array_user_profile">
         <item>@drawable/ic_user</item>
     </integer-array>
 
-    <string-array name="activity_array_row_title">
+    <array name="main_array_row_title">
         <item>Home</item>
         <item>Video Online</item>
         <item>Video Offline</item>
         <item>Chat Room</item>
         <item>Share Infor</item>
         <item>Report Infor</item>
-    </string-array>
+    </array>
 
-    <integer-array name="activity_array_row_icon">
+    <array name="main_array_row_icon">
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_video_online</item>
-        <item>@drawable/ic_vodeo_offline</item>
+        <item>@drawable/ic_video_offline</item>
         <item>@drawable/ic_chat</item>
         <item>@drawable/ic_share</item>
         <item>@drawable/ic_mail</item>
-    </integer-array>
+    </array>
 
 </resources>
