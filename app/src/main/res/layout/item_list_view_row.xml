@@ -12,7 +12,8 @@
         android:id="@+id/imgRowIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+        android:layout_marginStart="@dimen/main.recyclerview.margin_left"
+        android:contentDescription="@string/app_name"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+        android:layout_marginStart="@dimen/main.recyclerview.margin_left"
         android:text="@string/main.recyclerview.text_row"
         android:textColor="@color/main.textview.color_black" />
 </LinearLayout>

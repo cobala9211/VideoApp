@@ -23,7 +23,7 @@
         android:id="@+id/recycleViewMenu"
         android:layout_width="@dimen/main.recyclerview.width"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:background="@color/main.recyclerview.color.background_white"
         android:scrollbars="vertical">
 

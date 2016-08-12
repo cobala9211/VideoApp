@@ -14,7 +14,7 @@
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+            android:layout_marginStart="@dimen/main.recyclerview.margin_left"
             android:text="@string/main.recyclerview.text.header_user_name"
             android:textColor="@color/main.textview.color_black"
             android:textSize="@dimen/main.textview.size_medium" />
@@ -23,18 +23,18 @@
             android:id="@+id/tvUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+            android:layout_marginStart="@dimen/main.recyclerview.margin_left"
             android:text="@string/main.recyclerview.text.header_user_email"
             android:textColor="@color/main.textview.color_black"
             android:textSize="@dimen/main.textview.size_normal" />
 
     </LinearLayout>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgUserProfile"
         android:layout_width="@dimen/main.recyclerview.circleimageview"
         android:layout_height="@dimen/main.recyclerview.circleimageview"
-        android:layout_marginLeft="@dimen/main.recyclerview.margin_left"
+        android:layout_marginStart="@dimen/main.recyclerview.margin_left"
         android:layout_marginTop="@dimen/main.recyclerview.circleimageview_magintop"
-        android:src="@drawable/ic_user"
-        />
+        android:src="@drawable/ic_user" />
 </RelativeLayout>

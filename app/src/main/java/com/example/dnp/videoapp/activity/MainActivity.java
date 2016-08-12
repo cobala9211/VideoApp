@@ -2,6 +2,7 @@ package com.example.dnp.videoapp.activity;
 
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,18 +15,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.dnp.videoapp.R;
 import com.example.dnp.videoapp.adapter.NavigateAdapter;
 import com.example.dnp.videoapp.model.RowItem;
 import com.example.dnp.videoapp.model.Users;
-
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by dnp on 10/08/2016.
+ */
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity {
         for (int i = 0; i < length; i++) {
             mListRowItem.add(new RowItem(listIcon.getResourceId(i, -1), listTitle[i]));
         }
+        listIcon.recycle();
     }
 
     private void setupToolBar() {
@@ -62,7 +64,7 @@ public class MainActivity extends BaseActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_home));
             } else {
-                getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_home));
+                getSupportActionBar().setHomeAsUpIndicator(ContextCompat.getDrawable(this, R.drawable.ic_home));
             }
         }
     }
@@ -119,26 +121,25 @@ public class MainActivity extends BaseActivity {
         });
         layoutManager = new LinearLayoutManager(this);
         mRecycleViewMenu.setLayoutManager(layoutManager);
-        actionBarDrawerToggle = getActionBarDrawerToggle();
-        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = getActionBarDrawerToggle(mToolbar);
+        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 
-    private GestureDetector getGestureDetector(){
-        GestureDetector mGestureDetector = new GestureDetector(MainActivity.this,
-            new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
+    private GestureDetector getGestureDetector() {
+        return new GestureDetector(MainActivity.this,
+                new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        return true;
+                    }
 
-            });
-        return mGestureDetector;
+                });
     }
 
-    private ActionBarDrawerToggle getActionBarDrawerToggle() {
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
-                mDrawerLayout, mToolbar, R.string.main_actionbar_drawer_text_drawer_open,
+    private ActionBarDrawerToggle getActionBarDrawerToggle(Toolbar toolbar) {
+        return new ActionBarDrawerToggle(this,
+                mDrawerLayout, toolbar, R.string.main_actionbar_drawer_text_drawer_open,
                 R.string.main_actionbar_drawer_text_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity {
                 super.onDrawerClosed(drawerView);
             }
         };
-        return actionBarDrawerToggle;
+//        return actionBarDrawerToggle;
     }
 
     private Users getUsers() {
