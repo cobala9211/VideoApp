@@ -72,10 +72,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.mnActionSetting:
+            case R.id.mnuActionSetting:
                 Toast.makeText(MainActivity.this, getString(R.string.main_menu_text_action_setting), Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.mnActionUpload:
+            case R.id.mnuActionUpload:
                 Toast.makeText(MainActivity.this, getString(R.string.main_menu_text_action_upload), Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -151,7 +151,6 @@ public class MainActivity extends BaseActivity {
                 super.onDrawerClosed(drawerView);
             }
         };
-//        return actionBarDrawerToggle;
     }
 
     private Users getUsers() {
@@ -159,5 +158,4 @@ public class MainActivity extends BaseActivity {
                 getString(R.string.main_object_user_email),
                 getResources().obtainTypedArray(R.array.main_array_user_profile).getResourceId(0, -1));
     }
-
 }

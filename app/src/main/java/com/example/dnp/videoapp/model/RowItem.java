@@ -14,14 +14,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class RowItem {
 
-    /**
-     * url : this is url image row item
-     **/
     private int url;
 
-    /**
-     * title : this is title row item
-     **/
     private String title;
 
 }

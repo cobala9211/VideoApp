@@ -13,21 +13,10 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class Users {
 
-    /**
-     * userName : this is name of user
-     */
     private String userName;
 
-    /**
-     * email : this is email of user
-     */
     private String email;
 
-    /**
-     * userProfile : this is url image of user
-     */
     private int userProfile;
-
-
 
 }
