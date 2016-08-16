@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "833873143566",
+    "firebase_url": "https://videoapp-72ddf.firebaseio.com",
+    "project_id": "videoapp-72ddf",
+    "storage_bucket": "videoapp-72ddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833873143566:android:fa1e90ec4f48a30c",
+        "android_client_info": {
+          "package_name": "com.example.dnp.videoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833873143566-esj96dqq96md8rahjk50f0rmosr9vja4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcsRdFmspewDwoCKrygucg8wyMlORffPc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
