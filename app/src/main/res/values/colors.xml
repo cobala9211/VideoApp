@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+
+    <color name="colorPrimary">#0B7A12</color>
+    <color name="colorPrimaryDark">#0B7A12</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--custom color my app-->
+    <color name="main.toolbar.color_green">@color/colorPrimary</color>
+    <color name="main.textview.color_black">@android:color/black</color>
+    <color name="main.textview.color_white">@android:color/white</color>
+    <color name="main.recyclerview.color.background_white">@android:color/white</color>
+
 </resources>

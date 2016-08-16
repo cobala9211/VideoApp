@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "Mark Upload", should appear as action button if possible -->
+    <item
+        android:id="@+id/mnuActionUpload"
+        android:icon="@drawable/ic_upload"
+        android:orderInCategory="1"
+        android:menuCategory="secondary"
+        android:title="@string/main.menu.text.action_upload"
+        app:showAsAction="ifRoom" />
+
+    <!-- Settings, should always be in the overflow -->
+    <item
+        android:id="@+id/mnuActionSetting"
+        android:orderInCategory="100"
+        android:title="@string/main.menu.text.action_setting"
+        app:showAsAction="never" />
+
+</menu>

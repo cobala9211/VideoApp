@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llLayoutRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selecter_item_navigate"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/main.recyclerview.padding.item_row">
+
+    <ImageView
+        android:id="@+id/imgRowIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main.recyclerview.margin_left"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvRowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/main.recyclerview.margin_left"
+        android:text="@string/main.recyclerview.text_row"
+        android:textColor="@color/main.textview.color_black" />
+</LinearLayout>
