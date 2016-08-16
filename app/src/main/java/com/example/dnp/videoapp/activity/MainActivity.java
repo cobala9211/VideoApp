@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity {
                 }
                 return false;
             }
-
+            
             @Override
             public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
             }
@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         mRecycleViewMenu.setLayoutManager(layoutManager);
         actionBarDrawerToggle = getActionBarDrawerToggle(mToolbar);
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
+            mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 

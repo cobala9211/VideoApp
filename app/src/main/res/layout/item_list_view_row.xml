@@ -6,7 +6,7 @@
     android:background="@drawable/selecter_item_navigate"
     android:clickable="true"
     android:orientation="horizontal"
-    android:padding="@dimen/main.revyclerview.padding.item_row">
+    android:padding="@dimen/main.recyclerview.padding.item_row">
 
     <ImageView
         android:id="@+id/imgRowIcon"
