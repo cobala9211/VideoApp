@@ -15,6 +15,22 @@
     <string name="main.menu.text.action_upload">Upload</string>
     <string name="main.toast.text.action_setting">action item menu setting</string>
     <string name="main.toast.text.action_upload">action item menu upload</string>
+    <string name="main.toast.text.error_content">Please install a File Manager.</string>
+    <string name="main.simple.date.format_system_date">EEE, d MMM yyyy - HH:mm</string>
+    <string name="main.firebase.root.database_video_online">https://videoapp-72ddf.firebaseio.com/</string>
+    <string name="main.firebase.linkbase.database_video_online">gs://videoapp-72ddf.appspot.com</string>
+    <string name="main.constant.file.type.video_online">file</string>
+    <string name="main.constant.content.type.video_online">content</string>
+    <string name="main.constant.video.type.all_file_mp4">video/*</string>
+    <string name="main.constant.video.type.video">video/</string>
+    <string name="main.constant.file.path.text_error">error file path</string>
+    <string name="main.constant.file.choices.text">Select a File to Upload</string>
+    <string name="main.progressdialog.text.title_progressdialog">uploading</string>
+    <string name="main.progressdialog.text.message_progressdialog">upload file</string>
+    <string name="main.progressdialog.text.message_progressdialog_loading">upload File....</string>
+    <string name="main.firebase.object.user">user</string>
+    <string name="main.firebase.object.user.author">Author</string>
+
 
     <!--custom array-->
     <integer-array name="main_array_user_profile">
