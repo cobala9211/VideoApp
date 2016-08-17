@@ -56,7 +56,8 @@ import java.util.UUID;
 public class MainActivity extends BaseActivity {
 
     public static final int FILE_SELECT_CODE = 0;
-    private List<RowItem> mListRowItem = new ArrayList<>();
+    public static final int PERCENT_PROGRESS = 100;
+    private List<RowItem> mListRowItems = new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
     @ViewById(R.id.toolbarHeader)
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity {
         final TypedArray listIcon = getResources().obtainTypedArray(R.array.main_array_row_icon);
         final int length = listIcon.length();
         for (int i = 0; i < length; i++) {
-            mListRowItem.add(new RowItem(listIcon.getResourceId(i, -1), listTitle[i]));
+            mListRowItems.add(new RowItem(listIcon.getResourceId(i, -1), listTitle[i]));
         }
         listIcon.recycle();
     }
@@ -154,7 +155,7 @@ public class MainActivity extends BaseActivity {
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    double progress = (PERCENT_PROGRESS * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                     mProgressDialog.setMessage(getString(R.string.main_progressdialog_text_message_progressdialog_loading) + (int) progress + " %");
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -177,7 +178,6 @@ public class MainActivity extends BaseActivity {
         Firebase.setAndroidContext(this);
         Firebase root = new Firebase(getString(R.string.main_firebase_root_database_video_online));
         root.child(getString(R.string.main_firebase_object_user)).push().setValue(videoOnline);
-
     }
 
     public String geRealPathFromUri(Context context, Uri contentUri) {
@@ -219,7 +219,7 @@ public class MainActivity extends BaseActivity {
         setupToolBar();
         loadDataRecycler();
         mRecycleViewMenu.setHasFixedSize(true);
-        adapterNavigate = new NavigateAdapter(mListRowItem, getUsers());
+        adapterNavigate = new NavigateAdapter(mListRowItems, getUsers());
         mRecycleViewMenu.setAdapter(adapterNavigate);
         final GestureDetector mGestureDetector = getGestureDetector();
         mRecycleViewMenu.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
