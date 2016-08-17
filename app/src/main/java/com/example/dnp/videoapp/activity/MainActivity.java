@@ -10,6 +10,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,10 +29,15 @@ import android.widget.Toast;
 
 import com.example.dnp.videoapp.R;
 import com.example.dnp.videoapp.adapter.NavigateAdapter;
+import com.example.dnp.videoapp.fragment.VideoOnlineFragment;
+import com.example.dnp.videoapp.fragment.VideoOnlineFragment_;
 import com.example.dnp.videoapp.model.RowItem;
 import com.example.dnp.videoapp.model.Users;
 import com.example.dnp.videoapp.model.VideoOnline;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
@@ -57,7 +65,15 @@ public class MainActivity extends BaseActivity {
 
     public static final int FILE_SELECT_CODE = 0;
     public static final int PERCENT_PROGRESS = 100;
+    public static final int HOURS = 1000 * 60 * 60;
+    public static final int MINUTES = 1000 * 60;
+    public static final int SECONDS = 1000;
+    public static final int NUMBER_MAX = 10;
+    public static final int NUMBER_MIN = 0;
+
+
     private List<RowItem> mListRowItems = new ArrayList<>();
+    private List<VideoOnline> mListVideoOnline = new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
     @ViewById(R.id.toolbarHeader)
@@ -146,7 +162,7 @@ public class MainActivity extends BaseActivity {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, Uri.parse(path));
             File file = new File(path);
             final String name = file.getName();
-            final String duration = String.valueOf(mediaPlayer.getDuration());
+            final String duration = milliSecondsToTimer(mediaPlayer.getDuration());
             final String date = getDateSystem();
             StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(getString(R.string.main_firebase_linkbase_database_video_online));
             StorageReference fileVideo = storageReference.child(getString(R.string.main_constant_video_type_video) + name);
@@ -165,6 +181,7 @@ public class MainActivity extends BaseActivity {
                     String url = taskSnapshot.getMetadata().getDownloadUrl().toString();
                     VideoOnline videoOnline = new VideoOnline(url, name, getString(R.string.main_firebase_object_user_author) + UUID.randomUUID().toString(), date, duration);
                     uploadVideoOnline(videoOnline);
+                    loadDataVideoOnline();
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -178,6 +195,50 @@ public class MainActivity extends BaseActivity {
         Firebase.setAndroidContext(this);
         Firebase root = new Firebase(getString(R.string.main_firebase_root_database_video_online));
         root.child(getString(R.string.main_firebase_object_user)).push().setValue(videoOnline);
+    }
+
+    private void loadDataVideoOnline() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        final VideoOnlineFragment videoOnlineFragment = (VideoOnlineFragment) fragmentManager.findFragmentByTag(getString(R.string.video_online_fragment_content_text));
+        Firebase.setAndroidContext(MainActivity.this);
+        Firebase root = new Firebase(getString(R.string.main_firebase_root_database_video_online));
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mListVideoOnline.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    for (DataSnapshot object : data.getChildren()) {
+                        mListVideoOnline.add(object.getValue(VideoOnline.class));
+                        videoOnlineFragment.mVideoOnlineAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    private String milliSecondsToTimer(long milliseconds) {
+        String finalTimerString = "";
+        String secondsString;
+        int hours = (int) (milliseconds / HOURS);
+        int minutes = (int) (milliseconds % HOURS) / MINUTES;
+        int seconds = (int) ((milliseconds % HOURS) % MINUTES / SECONDS);
+        if (hours > NUMBER_MIN) {
+            finalTimerString = hours + ":";
+        }
+        if (seconds < NUMBER_MAX) {
+            secondsString = "0" + seconds;
+        } else {
+            secondsString = "" + seconds;
+        }
+
+        finalTimerString = finalTimerString + minutes + ":" + secondsString;
+
+        return finalTimerString;
     }
 
     public String geRealPathFromUri(Context context, Uri contentUri) {
@@ -221,6 +282,9 @@ public class MainActivity extends BaseActivity {
         mRecycleViewMenu.setHasFixedSize(true);
         adapterNavigate = new NavigateAdapter(mListRowItems, getUsers());
         mRecycleViewMenu.setAdapter(adapterNavigate);
+        VideoOnlineFragment videoOnlineFragment = new VideoOnlineFragment_().builder().build();
+        videoOnlineFragment.initDataVideo(mListVideoOnline);
+        initFragment(videoOnlineFragment, getString(R.string.video_online_fragment_content_text));
         final GestureDetector mGestureDetector = getGestureDetector();
         mRecycleViewMenu.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -228,6 +292,13 @@ public class MainActivity extends BaseActivity {
                 View childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
                 if (childView != null && mGestureDetector.onTouchEvent(motionEvent)) {
                     mDrawerLayout.closeDrawers();
+                    int position = recyclerView.getChildAdapterPosition(childView);
+                    switch (position) {
+                        case 1:
+                            VideoOnlineFragment videoOnlineFragment = new VideoOnlineFragment_().builder().build();
+                            videoOnlineFragment.initDataVideo(mListVideoOnline);
+                            break;
+                    }
                     return true;
                 }
                 return false;
@@ -248,6 +319,12 @@ public class MainActivity extends BaseActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    private void initFragment(Fragment fragment, String content) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frHomeFragment, fragment, content);
+        fragmentTransaction.commit();
+    }
 
     private GestureDetector getGestureDetector() {
         return new GestureDetector(MainActivity.this,
