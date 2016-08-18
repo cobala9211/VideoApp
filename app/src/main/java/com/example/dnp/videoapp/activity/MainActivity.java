@@ -53,9 +53,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by dnp on 10/08/2016.
@@ -65,13 +67,6 @@ public class MainActivity extends BaseActivity {
 
     public static final int FILE_SELECT_CODE = 0;
     public static final int PERCENT_PROGRESS = 100;
-    public static final int HOURS = 1000 * 60 * 60;
-    public static final int MINUTES = 1000 * 60;
-    public static final int SECONDS = 1000;
-    public static final int NUMBER_MAX = 10;
-    public static final int NUMBER_MIN = 0;
-
-
     private List<RowItem> mListRowItems = new ArrayList<>();
     private List<VideoOnline> mListVideoOnline = new ArrayList<>();
     private ProgressDialog mProgressDialog;
@@ -178,10 +173,14 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mProgressDialog.dismiss();
-                    String url = taskSnapshot.getMetadata().getDownloadUrl().toString();
-                    VideoOnline videoOnline = new VideoOnline(url, name, getString(R.string.main_firebase_object_user_author) + UUID.randomUUID().toString(), date, duration);
-                    uploadVideoOnline(videoOnline);
-                    loadDataVideoOnline();
+                    if (taskSnapshot.getMetadata() != null && taskSnapshot.getMetadata().getDownloadUrl() != null) {
+                        String url = taskSnapshot.getMetadata().getDownloadUrl().toString();
+                        VideoOnline videoOnline = new VideoOnline(url, name, getString(R.string.main_firebase_object_user_author) + UUID.randomUUID().toString(), date, duration);
+                        uploadVideoOnline(videoOnline);
+                        loadDataVideoOnline();
+                    }
+
+
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -222,23 +221,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private String milliSecondsToTimer(long milliseconds) {
-        String finalTimerString = "";
-        String secondsString;
-        int hours = (int) (milliseconds / HOURS);
-        int minutes = (int) (milliseconds % HOURS) / MINUTES;
-        int seconds = (int) ((milliseconds % HOURS) % MINUTES / SECONDS);
-        if (hours > NUMBER_MIN) {
-            finalTimerString = hours + ":";
-        }
-        if (seconds < NUMBER_MAX) {
-            secondsString = "0" + seconds;
-        } else {
-            secondsString = "" + seconds;
-        }
-
-        finalTimerString = finalTimerString + minutes + ":" + secondsString;
-
-        return finalTimerString;
+        return TimeUnit.MILLISECONDS.toHours(milliseconds) > 0 ? (new SimpleDateFormat("HH:mm:ss",
+                Locale.getDefault())).format(new Date(milliseconds)) : (new SimpleDateFormat("mm:ss",
+                Locale.getDefault())).format(new Date(milliseconds));
     }
 
     public String geRealPathFromUri(Context context, Uri contentUri) {

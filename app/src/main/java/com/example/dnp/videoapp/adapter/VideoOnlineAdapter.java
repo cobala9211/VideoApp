@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by dnp on 17/08/2016.
  */
-public class VideoOnlineAdapter extends RecyclerView.Adapter {
+public class VideoOnlineAdapter extends RecyclerView.Adapter<VideoOnlineAdapter.NavigateHolder> {
     private List<VideoOnline> mListVideos = new ArrayList<>();
 
     public VideoOnlineAdapter(List<VideoOnline> lists) {
@@ -24,19 +24,18 @@ public class VideoOnlineAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NavigateHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_video_online, parent, false);
         return new NavigateHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        NavigateHolder navigateHolder = (NavigateHolder) holder;
-        navigateHolder.mTvTitle.setText(mListVideos.get(position).getTitle());
-        navigateHolder.mTvAuthor.setText(mListVideos.get(position).getAuthor());
-        navigateHolder.mTvDate.setText(mListVideos.get(position).getDate());
-        navigateHolder.mTvTimeVideo.setText(mListVideos.get(position).getTimeVideo());
-        navigateHolder.mVideoView.setVideoPath(mListVideos.get(position).getUrl());
+    public void onBindViewHolder(NavigateHolder holder, int position) {
+        holder.mTvTitle.setText(mListVideos.get(position).getTitle());
+        holder.mTvAuthor.setText(mListVideos.get(position).getAuthor());
+        holder.mTvDate.setText(mListVideos.get(position).getDate());
+        holder.mTvTimeVideo.setText(mListVideos.get(position).getTimeVideo());
+        holder.mVideoView.setVideoPath(mListVideos.get(position).getUrl());
     }
 
     @Override
