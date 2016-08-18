@@ -282,7 +282,7 @@ public class MainActivity extends BaseActivity {
         mRecycleViewMenu.setHasFixedSize(true);
         adapterNavigate = new NavigateAdapter(mListRowItems, getUsers());
         mRecycleViewMenu.setAdapter(adapterNavigate);
-        VideoOnlineFragment videoOnlineFragment = new VideoOnlineFragment_().builder().build();
+        VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
         videoOnlineFragment.initDataVideo(mListVideoOnline);
         initFragment(videoOnlineFragment, getString(R.string.video_online_fragment_content_text));
         final GestureDetector mGestureDetector = getGestureDetector();
@@ -295,7 +295,7 @@ public class MainActivity extends BaseActivity {
                     int position = recyclerView.getChildAdapterPosition(childView);
                     switch (position) {
                         case 1:
-                            VideoOnlineFragment videoOnlineFragment = new VideoOnlineFragment_().builder().build();
+                            VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
                             videoOnlineFragment.initDataVideo(mListVideoOnline);
                             break;
                     }
