@@ -44,10 +44,7 @@ public class VideoOnlineFragment extends BaseFragment {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
                 View childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                if (childView != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    return true;
-                }
-                return false;
+                return childView != null && mGestureDetector.onTouchEvent(motionEvent);
             }
 
             @Override
