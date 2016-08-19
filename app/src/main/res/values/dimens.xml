@@ -17,5 +17,22 @@
     <dimen name="main.textview.size_normal">16dp</dimen>
     <dimen name="main.textview.size_medium">22dp</dimen>
 
+    <!--custom fragment-->
+    <dimen name="video.online.recyclerview.item.relativelayout.height">150dp</dimen>
+    <dimen name="video.online.recyclerview.item.videoview.width">170dp</dimen>
+    <dimen name="video.online.recyclerview.item.videoview.margin">10dp</dimen>
+    <dimen name="video.online.recyclerview.item.imageview.menu.margin_rigth">10dp</dimen>
+    <dimen name="video.online.recyclerview.item.imageview.menu.margin_top">30dp</dimen>
+    <dimen name="video.online.recyclerview.item.textview.title.margin_top">20dp</dimen>
+    <dimen name="video.online.recyclerview.item.textview.size">20dp</dimen>
+    <dimen name="video.online.recyclerview.item.textview.author.margin_top">5dp</dimen>
+    <dimen name="video.online.recyclerview.item.textview.date.margin_top">10dp</dimen>
+    <dimen name="video.online.recyclerview.item.relativelayout.view_height">170dp</dimen>
+    <dimen name="video.online.recyclerview.item.textview.time_video_margin">10dp</dimen>
+    <dimen name="video.online.recyclerview.item.cardview.height">150dp</dimen>
+    <dimen name="video.online.recyclerview.item.cardview.margin">8dp</dimen>
+
+    <dimen name="main.background.textview.corners.radius">3dp</dimen>
+    <dimen name="main.background.textview.stroke.width">1dp</dimen>
 
 </resources>

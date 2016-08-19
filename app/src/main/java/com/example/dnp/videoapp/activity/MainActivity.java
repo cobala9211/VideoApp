@@ -10,26 +10,34 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dnp.videoapp.R;
 import com.example.dnp.videoapp.adapter.NavigateAdapter;
+import com.example.dnp.videoapp.fragment.VideoOnlineFragment;
+import com.example.dnp.videoapp.fragment.VideoOnlineFragment_;
 import com.example.dnp.videoapp.model.RowItem;
 import com.example.dnp.videoapp.model.Users;
 import com.example.dnp.videoapp.model.VideoOnline;
+import com.example.dnp.videoapp.util.ClickItemRecyclerView;
+import com.example.dnp.videoapp.util.IClickItemRecyclerView;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
@@ -45,9 +53,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by dnp on 10/08/2016.
@@ -58,6 +68,7 @@ public class MainActivity extends BaseActivity {
     public static final int FILE_SELECT_CODE = 0;
     public static final int PERCENT_PROGRESS = 100;
     private List<RowItem> mListRowItems = new ArrayList<>();
+    private List<VideoOnline> mListVideos = new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
     @ViewById(R.id.toolbarHeader)
@@ -146,7 +157,7 @@ public class MainActivity extends BaseActivity {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, Uri.parse(path));
             File file = new File(path);
             final String name = file.getName();
-            final String duration = String.valueOf(mediaPlayer.getDuration());
+            final String duration = milliSecondsToTimer(mediaPlayer.getDuration());
             final String date = getDateSystem();
             StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(getString(R.string.main_firebase_linkbase_database_video_online));
             StorageReference fileVideo = storageReference.child(getString(R.string.main_constant_video_type_video) + name);
@@ -162,9 +173,12 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mProgressDialog.dismiss();
-                    String url = taskSnapshot.getMetadata().getDownloadUrl().toString();
-                    VideoOnline videoOnline = new VideoOnline(url, name, getString(R.string.main_firebase_object_user_author) + UUID.randomUUID().toString(), date, duration);
-                    uploadVideoOnline(videoOnline);
+                    if (taskSnapshot.getMetadata() != null && taskSnapshot.getMetadata().getDownloadUrl() != null) {
+                        String url = taskSnapshot.getMetadata().getDownloadUrl().toString();
+                        VideoOnline videoOnline = new VideoOnline(url, name, getString(R.string.main_firebase_object_user_author) + UUID.randomUUID().toString(), date, duration);
+                        uploadVideoOnline(videoOnline);
+                        loadDataVideoOnline();
+                    }
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -178,6 +192,36 @@ public class MainActivity extends BaseActivity {
         Firebase.setAndroidContext(this);
         Firebase root = new Firebase(getString(R.string.main_firebase_root_database_video_online));
         root.child(getString(R.string.main_firebase_object_user)).push().setValue(videoOnline);
+    }
+
+    private void loadDataVideoOnline() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        final VideoOnlineFragment videoOnlineFragment = (VideoOnlineFragment) fragmentManager.findFragmentByTag(getString(R.string.video_online_fragment_content_text));
+        Firebase.setAndroidContext(MainActivity.this);
+        Firebase root = new Firebase(getString(R.string.main_firebase_root_database_video_online));
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mListVideos.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    for (DataSnapshot object : data.getChildren()) {
+                        mListVideos.add(object.getValue(VideoOnline.class));
+                    }
+                }
+                videoOnlineFragment.mVideoOnlineAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    private String milliSecondsToTimer(long milliseconds) {
+        return TimeUnit.MILLISECONDS.toHours(milliseconds) > 0 ? (new SimpleDateFormat("HH:mm:ss",
+                Locale.getDefault())).format(new Date(milliseconds)) : (new SimpleDateFormat("mm:ss",
+                Locale.getDefault())).format(new Date(milliseconds));
     }
 
     public String geRealPathFromUri(Context context, Uri contentUri) {
@@ -214,50 +258,49 @@ public class MainActivity extends BaseActivity {
     @Override
     void afterViews() {
         RecyclerView.Adapter adapterNavigate;
-        RecyclerView.LayoutManager layoutManager;
         ActionBarDrawerToggle actionBarDrawerToggle;
         setupToolBar();
         loadDataRecycler();
+        mRecycleViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecycleViewMenu.setHasFixedSize(true);
         adapterNavigate = new NavigateAdapter(mListRowItems, getUsers());
         mRecycleViewMenu.setAdapter(adapterNavigate);
-        final GestureDetector mGestureDetector = getGestureDetector();
-        mRecycleViewMenu.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+        VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
+        videoOnlineFragment.initDataVideo(mListVideos);
+        initFragment(videoOnlineFragment, getString(R.string.video_online_fragment_content_text));
+        mRecycleViewMenu.addOnItemTouchListener(new ClickItemRecyclerView(this, mRecycleViewMenu, new IClickItemRecyclerView() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                View childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                if (childView != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    mDrawerLayout.closeDrawers();
-                    return true;
-                }
-                return false;
+            public void onClick(View view, int position) {
+                actionClickRecyclerView(position);
             }
 
             @Override
-            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-            }
+            public void onLongClick(View view, int position) {
 
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
-        });
-        layoutManager = new LinearLayoutManager(this);
-        mRecycleViewMenu.setLayoutManager(layoutManager);
+        }));
         actionBarDrawerToggle = getActionBarDrawerToggle(mToolbar);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 
+    private void actionClickRecyclerView(int position) {
+        mDrawerLayout.closeDrawers();
+        switch (position) {
+            case 1:
+                VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
+                videoOnlineFragment.initDataVideo(mListVideos);
+                break;
+            default:
+                break;
+        }
+    }
 
-    private GestureDetector getGestureDetector() {
-        return new GestureDetector(MainActivity.this,
-                new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
+    private void initFragment(Fragment fragment, String content) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frHomeFragment, fragment, content);
+        fragmentTransaction.commit();
     }
 
     private ActionBarDrawerToggle getActionBarDrawerToggle(Toolbar toolbar) {

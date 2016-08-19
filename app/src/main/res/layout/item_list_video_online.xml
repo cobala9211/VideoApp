@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViewVideo"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/video.online.recyclerview.item.cardview.height">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video.online.recyclerview.item.relativelayout.height">
+
+        <RelativeLayout
+            android:id="@+id/rlVideoView"
+            android:layout_width="@dimen/video.online.recyclerview.item.videoview.width"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/video.online.recyclerview.item.videoview.margin"
+            android:background="@android:color/black">
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvTimeVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rlVideoView"
+            android:layout_alignEnd="@+id/rlVideoView"
+            android:layout_margin="@dimen/video.online.recyclerview.item.textview.time_video_margin"
+            android:background="@drawable/background_textview"
+            android:text="@string/video.online.recyclerview.item.textview.text_time_video"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/video.online.recyclerview.item.imageview.menu.margin_rigth"
+            android:layout_marginTop="@dimen/video.online.recyclerview.item.imageview.menu.margin_top"
+            android:layout_toStartOf="@+id/imgMenu"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.title.margin_top"
+            android:layout_toEndOf="@+id/rlVideoView"
+            android:layout_toStartOf="@+id/imgMenu"
+            android:lines="1"
+            android:text="@string/video.online.recyclerview.item.textview.text_title"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/video.online.recyclerview.item.textview.size" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.author.margin_top"
+            android:layout_toEndOf="@+id/rlVideoView"
+            android:layout_toStartOf="@+id/imgMenu"
+            android:lines="1"
+            android:text="@string/video.online.recyclerview.item.textview.text_author"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/video.online.recyclerview.item.textview.size" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAuthor"
+            android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.date.margin_top"
+            android:layout_toEndOf="@+id/rlVideoView"
+            android:text="@string/video.online.recyclerview.item.textview.text_date"
+            android:textColor="@android:color/darker_gray" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

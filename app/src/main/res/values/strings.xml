@@ -31,6 +31,14 @@
     <string name="main.firebase.object.user">user</string>
     <string name="main.firebase.object.user.author">Author</string>
 
+    <!--custom string fragment online-->
+    <string name="video.online.recyclerview.item.textview.text_title">this is title</string>
+    <string name="video.online.recyclerview.item.textview.text_author">this is author</string>
+    <string name="video.online.recyclerview.item.textview.text_date">date : 09:08</string>
+    <string name="video.online.recyclerview.item.textview.text_time_video">05:10</string>
+    <string name="video.online.fragment.content_text">fragment video online</string>
+    <string name="video.offline.fragment.content_text">fragment video offline</string>
+
 
     <!--custom array-->
     <integer-array name="main_array_user_profile">
