@@ -9,7 +9,7 @@
         android:layout_height="@dimen/video.online.recyclerview.item.relativelayout.height">
 
         <RelativeLayout
-            android:id="@+id/lrVideoView"
+            android:id="@+id/rlVideoView"
             android:layout_width="@dimen/video.online.recyclerview.item.videoview.width"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/video.online.recyclerview.item.videoview.margin"
@@ -31,8 +31,8 @@
             android:id="@+id/tvTimeVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/lrVideoView"
-            android:layout_alignEnd="@+id/lrVideoView"
+            android:layout_alignBottom="@+id/rlVideoView"
+            android:layout_alignEnd="@+id/rlVideoView"
             android:layout_margin="@dimen/video.online.recyclerview.item.textview.time_video_margin"
             android:background="@drawable/background_textview"
             android:text="@string/video.online.recyclerview.item.textview.text_time_video"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.title.margin_top"
-            android:layout_toEndOf="@+id/lrVideoView"
+            android:layout_toEndOf="@+id/rlVideoView"
             android:layout_toStartOf="@+id/imgMenu"
             android:lines="1"
             android:text="@string/video.online.recyclerview.item.textview.text_title"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
             android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.author.margin_top"
-            android:layout_toEndOf="@+id/lrVideoView"
+            android:layout_toEndOf="@+id/rlVideoView"
             android:layout_toStartOf="@+id/imgMenu"
             android:lines="1"
             android:text="@string/video.online.recyclerview.item.textview.text_author"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvAuthor"
             android:layout_marginTop="@dimen/video.online.recyclerview.item.textview.date.margin_top"
-            android:layout_toEndOf="@+id/lrVideoView"
+            android:layout_toEndOf="@+id/rlVideoView"
             android:text="@string/video.online.recyclerview.item.textview.text_date"
             android:textColor="@android:color/darker_gray" />
     </RelativeLayout>
