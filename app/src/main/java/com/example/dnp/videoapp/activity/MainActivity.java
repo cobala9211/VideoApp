@@ -19,10 +19,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +32,8 @@ import com.example.dnp.videoapp.fragment.VideoOnlineFragment_;
 import com.example.dnp.videoapp.model.RowItem;
 import com.example.dnp.videoapp.model.Users;
 import com.example.dnp.videoapp.model.VideoOnline;
+import com.example.dnp.videoapp.util.ClickItemRecyclerView;
+import com.example.dnp.videoapp.util.IClickItemRecyclerView;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -260,66 +260,49 @@ public class MainActivity extends BaseActivity {
     @Override
     void afterViews() {
         RecyclerView.Adapter adapterNavigate;
-        RecyclerView.LayoutManager layoutManager;
         ActionBarDrawerToggle actionBarDrawerToggle;
         setupToolBar();
         loadDataRecycler();
+        mRecycleViewMenu.setLayoutManager(new LinearLayoutManager(this));
         mRecycleViewMenu.setHasFixedSize(true);
         adapterNavigate = new NavigateAdapter(mListRowItems, getUsers());
         mRecycleViewMenu.setAdapter(adapterNavigate);
+
         VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
         videoOnlineFragment.initDataVideo(mListVideoOnline);
         initFragment(videoOnlineFragment, getString(R.string.video_online_fragment_content_text));
-        final GestureDetector mGestureDetector = getGestureDetector();
-        mRecycleViewMenu.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        mRecycleViewMenu.addOnItemTouchListener(new ClickItemRecyclerView(this, mRecycleViewMenu, new IClickItemRecyclerView() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                View childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                if (childView != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    mDrawerLayout.closeDrawers();
-                    int position = recyclerView.getChildAdapterPosition(childView);
-                    switch (position) {
-                        case 1:
-                            VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
-                            videoOnlineFragment.initDataVideo(mListVideoOnline);
-                            break;
-                    }
-                    return true;
-                }
-                return false;
+            public void onClick(View view, int position) {
+                actionClickRecyclerView(position);
             }
 
             @Override
-            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-            }
+            public void onLongClick(View view, int position) {
 
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
             }
-        });
-        layoutManager = new LinearLayoutManager(this);
-        mRecycleViewMenu.setLayoutManager(layoutManager);
+        }));
         actionBarDrawerToggle = getActionBarDrawerToggle(mToolbar);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 
-    private void initFragment(Fragment fragment, String content) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frHomeFragment, fragment, content);
-        fragmentTransaction.commit();
+    private void actionClickRecyclerView(int position) {
+        mDrawerLayout.closeDrawers();
+        switch (position) {
+            case 1:
+                VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
+                videoOnlineFragment.initDataVideo(mListVideoOnline);
+                break;
+            default:
+                break;
+        }
     }
 
-    private GestureDetector getGestureDetector() {
-        return new GestureDetector(MainActivity.this,
-                new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
+    private void initFragment(Fragment fragment, String content) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frHomeFragment, fragment, content);
+        fragmentTransaction.commit();
     }
 
     private ActionBarDrawerToggle getActionBarDrawerToggle(Toolbar toolbar) {

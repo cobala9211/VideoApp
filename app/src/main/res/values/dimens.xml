@@ -32,4 +32,7 @@
     <dimen name="video.online.recyclerview.item.cardview.height">150dp</dimen>
     <dimen name="video.online.recyclerview.item.cardview.margin">8dp</dimen>
 
+    <dimen name="main.background.textview.corners.radius">3dp</dimen>
+    <dimen name="main.background.textview.stroke.width">1dp</dimen>
+
 </resources>

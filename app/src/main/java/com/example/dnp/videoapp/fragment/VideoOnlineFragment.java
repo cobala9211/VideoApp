@@ -2,13 +2,13 @@ package com.example.dnp.videoapp.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.dnp.videoapp.R;
 import com.example.dnp.videoapp.adapter.VideoOnlineAdapter;
 import com.example.dnp.videoapp.model.VideoOnline;
+import com.example.dnp.videoapp.util.ClickItemRecyclerView;
+import com.example.dnp.videoapp.util.IClickItemRecyclerView;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -33,28 +33,21 @@ public class VideoOnlineFragment extends BaseFragment {
 
     @Override
     void afterViews() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerViewOnline.setLayoutManager(linearLayoutManager);
+        mRecyclerViewOnline.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewOnline.setHasFixedSize(true);
         mVideoOnlineAdapter = new VideoOnlineAdapter(mListVideos);
         mRecyclerViewOnline.setAdapter(mVideoOnlineAdapter);
         loadDataVideoOnline();
-        final GestureDetector mGestureDetector = getGestureDetector();
-        mRecyclerViewOnline.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+        mRecyclerViewOnline.addOnItemTouchListener(new ClickItemRecyclerView(getActivity(), mRecyclerViewOnline, new IClickItemRecyclerView() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                View childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-                return childView != null && mGestureDetector.onTouchEvent(motionEvent);
+            public void onClick(View view, int position) {
             }
 
             @Override
-            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+            public void onLongClick(View view, int position) {
             }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-            }
-        });
+        }));
     }
 
     private void loadDataVideoOnline() {
@@ -81,16 +74,5 @@ public class VideoOnlineFragment extends BaseFragment {
 
     public void initDataVideo(List<VideoOnline> lists) {
         this.mListVideos = lists;
-    }
-
-    private GestureDetector getGestureDetector() {
-        return new GestureDetector(getActivity(),
-                new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
     }
 }
