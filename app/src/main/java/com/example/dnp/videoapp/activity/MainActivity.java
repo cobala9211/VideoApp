@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity {
     public static final int FILE_SELECT_CODE = 0;
     public static final int PERCENT_PROGRESS = 100;
     private List<RowItem> mListRowItems = new ArrayList<>();
-    private List<VideoOnline> mListVideoOnline = new ArrayList<>();
+    private List<VideoOnline> mListVideos = new ArrayList<>();
     private ProgressDialog mProgressDialog;
 
     @ViewById(R.id.toolbarHeader)
@@ -179,8 +179,6 @@ public class MainActivity extends BaseActivity {
                         uploadVideoOnline(videoOnline);
                         loadDataVideoOnline();
                     }
-
-
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -204,13 +202,13 @@ public class MainActivity extends BaseActivity {
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mListVideoOnline.clear();
+                mListVideos.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     for (DataSnapshot object : data.getChildren()) {
-                        mListVideoOnline.add(object.getValue(VideoOnline.class));
-                        videoOnlineFragment.mVideoOnlineAdapter.notifyDataSetChanged();
+                        mListVideos.add(object.getValue(VideoOnline.class));
                     }
                 }
+                videoOnlineFragment.mVideoOnlineAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -269,7 +267,7 @@ public class MainActivity extends BaseActivity {
         mRecycleViewMenu.setAdapter(adapterNavigate);
 
         VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
-        videoOnlineFragment.initDataVideo(mListVideoOnline);
+        videoOnlineFragment.initDataVideo(mListVideos);
         initFragment(videoOnlineFragment, getString(R.string.video_online_fragment_content_text));
         mRecycleViewMenu.addOnItemTouchListener(new ClickItemRecyclerView(this, mRecycleViewMenu, new IClickItemRecyclerView() {
             @Override
@@ -292,7 +290,7 @@ public class MainActivity extends BaseActivity {
         switch (position) {
             case 1:
                 VideoOnlineFragment videoOnlineFragment = VideoOnlineFragment_.builder().build();
-                videoOnlineFragment.initDataVideo(mListVideoOnline);
+                videoOnlineFragment.initDataVideo(mListVideos);
                 break;
             default:
                 break;

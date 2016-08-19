@@ -60,9 +60,9 @@ public class VideoOnlineFragment extends BaseFragment {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     for (DataSnapshot object : data.getChildren()) {
                         mListVideos.add(object.getValue(VideoOnline.class));
-                        mVideoOnlineAdapter.notifyDataSetChanged();
                     }
                 }
+                mVideoOnlineAdapter.notifyDataSetChanged();
             }
 
             @Override
